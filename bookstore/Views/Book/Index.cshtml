@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="d-flex justify-content-between">
+    <h2>Books</h2>
+    <div>
+        <a role="button" class="btn btn-primary" href="/Book/Create">Create</a>
+    </div>
+</div>
+
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Author</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var i in Model)
+        {
+        <tr>
+            <th>@i.id</th>
+            <td>@i.Author</td>
+            <td>@i.Price</td>
+            <td >
+                <a role="button" class="float-end btn btn-success" href="/Book/Detail/@i.id">Detail</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+

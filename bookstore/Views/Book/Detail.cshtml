@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "Detail";
+}
+
+<h2>Detail</h2>
+
+<div class="card">
+    <div class="card-body">
+        <p>Id: @Model.id</p>
+        <p>Author: @Model.Author</p>
+        <p>Price: @Model.Price</p>
+    </div>
+</div>
+
+<div class="d-flex justify-content-end p-2">
+    <div class="px-1">
+        <a role="button" class="btn btn-info" href="/Book/Edit/@Model.id">Edit</a>
+    </div>
+    <div class="px-1">
+        <a role="button" class="btn btn-danger" href="/Book/Delete/@Model.id">Delete</a>
+    </div>
+</div>

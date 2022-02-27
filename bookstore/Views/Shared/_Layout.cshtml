@@ -1,0 +1,26 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet">
+
+    <title>@ViewBag.Title - BookStore</title>
+</head>
+<body>
+    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">BookStore</a>
+        </div>
+    </nav>
+    <div class="container pt-3">
+        @RenderBody()
+    </div>
+
+
+    <script src="@Url.Content("~/Script/bootstrap.bundle.min.js")"></script>
+</body>
+</html>
