@@ -10,24 +10,24 @@ namespace bookstore.Controllers
 {
     public class BookController : Controller
     {
-        private BookTxtReepository _bookTxtReepository;
+        private BookTxtRepository _bookTxtRepository;
 
         public BookController()
         {
-            _bookTxtReepository = new BookTxtReepository();  
+            _bookTxtRepository = new BookTxtRepository();  
         }
 
         // GET: Index
         public ActionResult Index()
         {
-            List<Book> books = _bookTxtReepository.GetAll();
+            List<Book> books = _bookTxtRepository.GetAll();
             return View(books);
         }
 
         // GET: Detail
         public ActionResult Detail(int id)
         {   
-            Book book = _bookTxtReepository.Get(id);
+            Book book = _bookTxtRepository.Get(id);
             return View(book);
         }
 
@@ -42,14 +42,15 @@ namespace bookstore.Controllers
         [HttpPost]
         public ActionResult Create(Book book)
         {
-            _bookTxtReepository.Create(book);
+            bool success = _bookTxtRepository.Create(book);
+            if(!success) return View(book);
             return RedirectToAction("Index");
         }
 
         // GET: Edit
         public ActionResult Edit(int id)
         {
-            Book book = _bookTxtReepository.Get(id);
+            Book book = _bookTxtRepository.Get(id);
             return View(book);
         }
 
@@ -57,14 +58,15 @@ namespace bookstore.Controllers
         [HttpPost]
         public ActionResult Edit(Book book)
         {
-            _bookTxtReepository.Edit(book);
+            bool success = _bookTxtRepository.Edit(book);
+            if (!success) return View(book);
             return RedirectToAction("Index");
         }
 
         // GET: Delete
         public ActionResult Delete(int id)
         {
-            Book book = _bookTxtReepository.Get(id);
+            Book book = _bookTxtRepository.Get(id);
             return View(book);
         }
 
@@ -72,7 +74,8 @@ namespace bookstore.Controllers
         [HttpPost]
         public ActionResult Delete(Book book)
         {
-            _bookTxtReepository.Delete(book);
+            bool success = _bookTxtRepository.Delete(book);
+            if(!success) return View(book);
             return RedirectToAction("Index");
         }
     }

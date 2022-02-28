@@ -6,9 +6,13 @@ using System.Web;
 
 namespace bookstore.Models
 {
-    public class BookTxtReepository
+    public class BookTxtRepository
     {
-        private string _app_data = HttpContext.Current.Server.MapPath("~/App_Data");
+        private readonly string _app_data;
+        public BookTxtRepository()
+        {
+            _app_data = HttpContext.Current.Server.MapPath("~/App_Data");
+        }
         public List<Book> GetAll()
         {
             List<Book> books = new List<Book>();
@@ -29,6 +33,7 @@ namespace bookstore.Models
         public Book Get(int id)
         {   
             string fn = Path.Combine(_app_data, id.ToString() + ".txt");
+            if(!File.Exists(fn)) return new Book();
             string[] lines = System.IO.File.ReadAllLines(fn);
             Book book = new Book()
             {
@@ -39,25 +44,31 @@ namespace bookstore.Models
 
             return book;
         }
-        public void Create(Book book)
+        public bool Create(Book book)
         {
             string fn = Path.Combine(_app_data, book.id.ToString() + ".txt");
+            if (File.Exists(fn)) return false;
             string content = $"{book.id}\n{book.Author}\n{book.Price}";
             File.WriteAllText(fn, content);
+
+            return true;
         }
-        public void Edit(Book book)
+        public bool Edit(Book book)
         {
             string fn = Path.Combine(_app_data, book.id.ToString() + ".txt");
+            if (!File.Exists(fn)) return false;
             string content = $"{book.id}\n{book.Author}\n{book.Price}";
             File.WriteAllText(fn, content);
+
+            return true;
         }
-        public void Delete(Book book)
+        public bool Delete(Book book)
         {
             string fn = Path.Combine(_app_data, book.id.ToString() + ".txt");
-            if (File.Exists(fn))
-            {
-                File.Delete(fn);
-            }
+            if (!File.Exists(fn)) return false;
+            File.Delete(fn);
+
+            return true;
         }
     }
 }
