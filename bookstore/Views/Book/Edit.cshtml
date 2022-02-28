@@ -4,19 +4,19 @@
 }
 
 <h2>Edit</h2>
-<form action="/Book/Create" method="post">
+<form action="/Book/Edit" method="post">
     <div class="mb-3">
         <label>Id</label>
         <input type="hidden" value="@Model.id" name="id">
-        <input type="number" class="form-control" placeholder="Id" value="@Model.id" disabled>
+        <input type="number" class="form-control" placeholder="id" value="@Model.id" disabled>
     </div>
     <div class="mb-3">
         <label>Author</label>
-        <input type="text" class="form-control" placeholder="Author" name="author" value="@Model.Author">
+        <input type="text" class="form-control" placeholder="Author" name="Author" value="@Model.Author">
     </div>
     <div class="mb-3">
         <label>Price</label>
-        <input type="number" class="form-control" placeholder="Price" name="price" value="@Model.Price">
+        <input type="number" class="form-control" placeholder="Price" name="Price" value="@Model.Price">
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>

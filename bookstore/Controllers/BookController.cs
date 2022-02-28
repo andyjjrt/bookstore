@@ -51,10 +51,10 @@ namespace bookstore.Controllers
 
         // POST: Create
         [HttpPost]
-        public ActionResult Create(FormCollection form)
+        public ActionResult Create(Book book)
         {
-            string content = $"{form["id"]}\n{form["author"]}\n{form["price"]}";
-            System.IO.File.WriteAllText(Server.MapPath("~/App_Data/" + form["id"] + ".txt"), content);
+            string content = $"{book.id}\n{book.Author}\n{book.Price}";
+            System.IO.File.WriteAllText(Server.MapPath("~/App_Data/" + book.id + ".txt"), content);
 
             return RedirectToAction("Index");
         }
@@ -74,10 +74,10 @@ namespace bookstore.Controllers
 
         // POST: Edit
         [HttpPost]
-        public ActionResult Edit(FormCollection form)
+        public ActionResult Edit(Book book)
         {
-            string content = $"{form["id"]}\n{form["author"]}\n{form["price"]}";
-            System.IO.File.WriteAllText(Server.MapPath("~/App_Data/" + form["id"] + ".txt"), content);
+            string content = $"{book.id}\n{book.Author}\n{book.Price}";
+            System.IO.File.WriteAllText(Server.MapPath("~/App_Data/" + book.id + ".txt"), content);
 
             return RedirectToAction("Index");
         }

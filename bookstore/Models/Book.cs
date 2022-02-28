@@ -7,19 +7,8 @@ namespace bookstore.Models
 {
     public class Book
     {
-        public int id;
-        public string Author;
-        public int Price;
-
-        public Book()
-        {
-
-        }
-        public Book(int _id, string author, int price)
-        {
-            id = _id;
-            Author = author;
-            Price = price; 
-        }
+        public int id { get; set; }
+        public string Author { get; set; }
+        public int Price { get; set; } 
     }
 }
