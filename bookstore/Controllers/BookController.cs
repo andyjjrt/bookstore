@@ -10,35 +10,24 @@ namespace bookstore.Controllers
 {
     public class BookController : Controller
     {
+        private BookTxtReepository _bookTxtReepository;
+
+        public BookController()
+        {
+            _bookTxtReepository = new BookTxtReepository();  
+        }
 
         // GET: Index
         public ActionResult Index()
         {
-            List<Book> books = new List<Book>();
-            string[] files = Directory.GetFiles(Server.MapPath("~/App_Data"), "*.txt", SearchOption.TopDirectoryOnly);
-            foreach (string item in files)
-            {
-                string[] lines = System.IO.File.ReadAllLines(item);
-                books.Add(new Book()
-                {
-                    id = Int32.Parse(lines[0]),
-                    Author = lines[1],
-                    Price = Int32.Parse(lines[2]),
-                });
-            }
+            List<Book> books = _bookTxtReepository.GetAll();
             return View(books);
         }
 
         // GET: Detail
         public ActionResult Detail(int id)
         {   
-            string[] lines = System.IO.File.ReadAllLines(Server.MapPath("~/App_Data/" + id + ".txt"));
-            Book book = new Book()
-            {
-                id = Int32.Parse(lines[0]),
-                Author = lines[1],
-                Price = Int32.Parse(lines[2]),
-            };
+            Book book = _bookTxtReepository.Get(id);
             return View(book);
         }
 
@@ -53,22 +42,14 @@ namespace bookstore.Controllers
         [HttpPost]
         public ActionResult Create(Book book)
         {
-            string content = $"{book.id}\n{book.Author}\n{book.Price}";
-            System.IO.File.WriteAllText(Server.MapPath("~/App_Data/" + book.id + ".txt"), content);
-
+            _bookTxtReepository.Create(book);
             return RedirectToAction("Index");
         }
 
         // GET: Edit
         public ActionResult Edit(int id)
         {
-            string[] lines = System.IO.File.ReadAllLines(Server.MapPath("~/App_Data/" + id + ".txt"));
-            Book book = new Book()
-            {
-                id = Int32.Parse(lines[0]),
-                Author = lines[1],
-                Price = Int32.Parse(lines[2]),
-            };
+            Book book = _bookTxtReepository.Get(id);
             return View(book);
         }
 
@@ -76,35 +57,22 @@ namespace bookstore.Controllers
         [HttpPost]
         public ActionResult Edit(Book book)
         {
-            string content = $"{book.id}\n{book.Author}\n{book.Price}";
-            System.IO.File.WriteAllText(Server.MapPath("~/App_Data/" + book.id + ".txt"), content);
-
+            _bookTxtReepository.Edit(book);
             return RedirectToAction("Index");
         }
 
         // GET: Delete
         public ActionResult Delete(int id)
         {
-            string[] lines = System.IO.File.ReadAllLines(Server.MapPath("~/App_Data/" + id + ".txt"));
-            Book book = new Book()
-            {
-                id = Int32.Parse(lines[0]),
-                Author = lines[1],
-                Price = Int32.Parse(lines[2]),
-            };
+            Book book = _bookTxtReepository.Get(id);
             return View(book);
         }
 
         //Post: Delete
         [HttpPost]
-        public ActionResult Delete(FormCollection form)
+        public ActionResult Delete(Book book)
         {
-            string Id = form["id"];
-            string fn = Server.MapPath("~/App_Data/" + Id + ".txt");
-            if (System.IO.File.Exists(fn))
-            {
-                System.IO.File.Delete(fn);
-            }
+            _bookTxtReepository.Delete(book);
             return RedirectToAction("Index");
         }
     }
